@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách ID & Tài Khoản Nổi Tiếng</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Supabase JS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: rgba(30, 41, 59, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 32px 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        /* Profile Header */
+        .avatar {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 36px;
+            color: #ffffff;
+            box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .profile h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .profile p {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+
+        /* Search Box */
+        .search-box {
+            margin: 20px 0 16px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 16px 12px 42px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            border-color: #3b82f6;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+        }
+
+        /* Account Cards List */
+        .accounts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        /* Thanh cuộn tùy chỉnh */
+        .accounts-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        .accounts-list::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+
+        .account-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 14px 16px;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .account-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+
+        .acc-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: left;
+        }
+
+        .acc-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #334155;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .acc-details .name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .acc-details .badge {
+            color: #3b82f6;
+            font-size: 0.8rem;
+        }
+
+        .acc-details .id-text {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-top: 2px;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .copy-btn {
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background: #3b82f6;
+            color: #ffffff;
+        }
+
+        .link-btn {
+            color: #94a3b8;
+            font-size: 1rem;
+            padding: 4px;
+            transition: color 0.2s ease;
+        }
+
+        .link-btn:hover {
+            color: #ffffff;
+        }
+
+        /* Status State */
+        .loading, .empty-state {
+            padding: 24px 0;
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        /* Back Button & Footer */
+        .back-btn {
+            display: inline-block;
+            margin-top: 24px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: #ffffff;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        /* Toast Notice */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #10b981;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="profile">
+            <div class="avatar">
+                <i class="fa-solid fa-users-viewfinder"></i>
+            </div>
+            <h1>ID & Tài Khoản Nổi Tiếng</h1>
+            <p>Danh sách ID thông tin tài khoản nổi tiếng được cập nhật từ hệ thống.</p>
+        </div>
+
+        <!-- Tìm kiếm -->
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Tìm tên tài khoản hoặc ID..." oninput="filterAccounts()">
+        </div>
+
+        <!-- Danh sách tài khoản lấy từ Supabase -->
+        <div class="accounts-list" id="accountsList">
+            <div class="loading"><i class="fa-solid fa-spinner fa-spin"></i> Đang tải dữ liệu...</div>
+        </div>
+
+        <!-- Nút quay lại -->
+        <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Quay lại trang chính</a>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2026 All Rights Reserved.</p>
+        </div>
+    </div>
+
+    <!-- Thông báo Sao chép thành công -->
+    <div id="toast" class="toast"><i class="fa-solid fa-check"></i> Đã sao chép ID!</div>
+
+    <script>
+        // Cấu hình Supabase chính thức của bạn
+        const SUPABASE_URL = 'https://isxmldnlmgijjeluxarl.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlzeG1sZG5sbWdpamplbHV4YXJsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk3NDM1MTUsImV4cCI6MjEwNTMxOTUxNX0.fMvwDwE4YRCM8ixsfHKlUyG7uhSVBQPfJKBH-lf3zNg';
+
+        // Khởi tạo Supabase Client
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let allAccounts = [];
+
+        // Lấy dữ liệu từ bảng famous_accounts
+        async function fetchAccounts() {
+            try {
+                const { data, error } = await _supabase
+                    .from('famous_accounts')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                allAccounts = data || [];
+                renderAccounts(allAccounts);
+            } catch (err) {
+                console.error('Lỗi khi tải dữ liệu từ Supabase:', err);
+                document.getElementById('accountsList').innerHTML = `
+                    <div class="empty-state">
+                        <i class="fa-solid fa-triangle-exclamation" style="color: #ef4444;"></i><br>
+                        Lỗi kết nối cơ sở dữ liệu! Vui lòng kiểm tra bảng <b>famous_accounts</b> trên Supabase.
+                    </div>`;
+            }
+        }
+
+        // Hiển thị danh sách tài khoản
+        function renderAccounts(accounts) {
+            const listEl = document.getElementById('accountsList');
+            
+            if (accounts.length === 0) {
+                listEl.innerHTML = '<div class="empty-state">Chưa có dữ liệu hoặc không tìm thấy tài khoản!</div>';
+                return;
+            }
+
+            listEl.innerHTML = accounts.map(acc => `
+                <div class="account-card">
+                    <div class="acc-info">
+                        <img src="${acc.avatar_url || 'https://via.placeholder.com/150'}" class="acc-avatar" alt="Avatar" onerror="this.src='https://via.placeholder.com/150'">
+                        <div class="acc-details">
+                            <div class="name">
+                                ${acc.title || 'Tên Tài Khoản'}
+                                ${acc.is_verified ? '<i class="fa-solid fa-circle-check badge"></i>' : ''}
+                            </div>
+                            <div class="id-text">ID: <span>${acc.account_id || 'N/A'}</span></div>
+                        </div>
+                    </div>
+                    <div class="action-btns">
+                        <button class="copy-btn" onclick="copyText('${acc.account_id}')">Copy ID</button>
+                        ${acc.link ? `<a href="${acc.link}" target="_blank" class="link-btn"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Lọc/Tìm kiếm tài khoản
+        function filterAccounts() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = allAccounts.filter(acc => 
+                (acc.title && acc.title.toLowerCase().includes(query)) ||
+                (acc.account_id && acc.account_id.toLowerCase().includes(query))
+            );
+            renderAccounts(filtered);
+        }
+
+        // Hàm copy ID
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2000);
+            });
+        }
+
+        // Chạy hàm lấy dữ liệu khi mở trang
+        fetchAccounts();
+    </script>
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tổng Hợp Nội Dung & Dịch Vụ</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: rgba(30, 41, 59, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 32px 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        /* Profile Header */
+        .avatar {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 36px;
+            color: #ffffff;
+            box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .profile h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .profile p {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+
+        /* Links List */
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .link-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 16px 20px;
+            border-radius: 16px;
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .link-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(59, 130, 246, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .link-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-align: left;
+        }
+
+        .link-icon {
+            font-size: 1.3rem;
+            width: 24px;
+            text-align: center;
+            color: #3b82f6;
+        }
+
+        .link-text .title {
+            font-weight: 600;
+            font-size: 0.98rem;
+            display: block;
+        }
+
+        .link-text .description {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-top: 2px;
+            display: block;
+        }
+
+        .arrow-icon {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 28px;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        /* Modal / Popup Bản quyền */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 24px;
+            max-width: 440px;
+            width: 100%;
+            text-align: left;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .modal-content h2 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            color: #3b82f6;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-content p {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="profile">
+            <div class="avatar">
+                <i class="fa-solid fa-layer-group"></i>
+            </div>
+            <h1>Tổng Hợp Nội Dung & Dịch Vụ</h1>
+            <p>Trang thông tin, cập nhật kho dữ liệu và liên hệ chính thức.</p>
+        </div>
+
+        <!-- Danh sách 4 mục chính -->
+        <div class="links-container">
+
+            <!-- Mục 1: Cập nhật Hình ảnh / Video / File truyện -->
+            <a href="https://dour-dev.github.io/Kitorio.click/" target="_blank" class="link-card">
+                <div class="link-info">
+                    <i class="fa-solid fa-photo-film link-icon"></i>
+                    <div class="link-text">
+                        <span class="title">Kho Media & File Truyện</span>
+                        <span class="description">Cập nhật hình ảnh, video và file truyện mới nhất</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <!-- Mục 2: ID Thông tin & Tài khoản -->
+            <a href="id-info.html" target="_blank" class="link-card">
+                <div class="link-info">
+                    <i class="fa-solid fa-address-card link-icon"></i>
+                    <div class="link-text">
+                        <span class="title">Tài Khoản & Thông Tin ID</span>
+                        <span class="description">Tổng hợp ID thông tin và link các tài khoản</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <!-- Mục 3: Liên hệ chúng tôi (Chuyển sang trang contact.html) -->
+            <a href="contact.html" class="link-card">
+                <div class="link-info">
+                    <i class="fa-solid fa-headset link-icon"></i>
+                    <div class="link-text">
+                        <span class="title">Liên Hệ Chúng Tôi</span>
+                        <span class="description">Gmail, Facebook, TikTok chính thức</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <!-- Mục 4: Bản quyền & Miễn trừ trách nhiệm -->
+            <div class="link-card" onclick="openModal()">
+                <div class="link-info">
+                    <i class="fa-solid fa-shield-halved link-icon"></i>
+                    <div class="link-text">
+                        <span class="title">Bản Quyền & Miễn Trừ Trách Nhiệm</span>
+                        <span class="description">Chính sách bản quyền nội dung và nguồn (Credits)</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2026 All Rights Reserved.</p>
+        </div>
+    </div>
+
+    <!-- Modal Popup Thông tin Bản quyền -->
+    <div class="modal" id="copyrightModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h2><i class="fa-solid fa-scale-balanced"></i> Chính Sách Bản Quyền</h2>
+            
+            <p><strong>1. Bản quyền Website:</strong><br>
+            Toàn bộ giao diện, mã nguồn và cấu trúc nội dung thuộc bản quyền của trang web này.</p>
+            
+            <p><strong>2. Miễn trừ trách nhiệm bản quyền (Credits):</strong><br>
+            Một số tài nguyên hình ảnh, video hoặc file truyện trên hệ thống được sưu tầm và tổng hợp từ nhiều nguồn trực tuyến. Chúng tôi luôn ghi rõ nguồn gốc (Credit) tác giả/chủ sở hữu trong từng bài đăng.</p>
+            
+            <p><strong>3. Yêu cầu gỡ bỏ (DMCA):</strong><br>
+            Nếu bạn là chủ sở hữu hợp pháp của bất kỳ nội dung nào và không muốn nó xuất hiện tại đây, vui lòng liên hệ với chúng tôi qua mục <strong>Liên Hệ</strong> để được hỗ trợ gỡ bỏ sớm nhất.</p>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('copyrightModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('copyrightModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            var modal = document.getElementById('copyrightModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liên Hệ Chúng Tôi</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: rgba(30, 41, 59, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 32px 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        /* Header */
+        .avatar {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 36px;
+            color: #ffffff;
+            box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .profile h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .profile p {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+
+        /* Contact Links List */
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .link-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 16px 20px;
+            border-radius: 16px;
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .link-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(59, 130, 246, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .link-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-align: left;
+        }
+
+        .link-icon {
+            font-size: 1.5rem;
+            width: 28px;
+            text-align: center;
+        }
+
+        /* Màu riêng cho từng icon thương hiệu */
+        .gmail-icon { color: #ea4335; }
+        .facebook-icon { color: #1877f2; }
+        .tiktok-icon { color: #25f4ee; }
+
+        .link-text .title {
+            font-weight: 600;
+            font-size: 0.98rem;
+            display: block;
+        }
+
+        .link-text .description {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-top: 2px;
+            display: block;
+        }
+
+        .arrow-icon {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        /* Back Button & Footer */
+        .back-btn {
+            display: inline-block;
+            margin-top: 24px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: #ffffff;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="profile">
+            <div class="avatar">
+                <i class="fa-solid fa-headset"></i>
+            </div>
+            <h1>Liên Hệ Chúng Tôi</h1>
+            <p>Chọn kênh truyền thông bên dưới để kết nối hoặc phản hồi thông tin nhanh nhất.</p>
+        </div>
+
+        <!-- Danh sách liên hệ -->
+        <div class="links-container">
+
+            <!-- 1. Gmail -->
+            <a href="mailto:uani.ome.22@gmail.com" class="link-card">
+                <div class="link-info">
+                    <i class="fa-solid fa-envelope link-icon gmail-icon"></i>
+                    <div class="link-text">
+                        <span class="title">Gmail</span>
+                        <span class="description">uani.ome.22@gmail.com</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <!-- 2. Facebook -->
+            <a href="https://www.facebook.com/share/1bwbtMakaf/" target="_blank" rel="noopener noreferrer" class="link-card">
+                <div class="link-info">
+                    <i class="fa-brands fa-facebook link-icon facebook-icon"></i>
+                    <div class="link-text">
+                        <span class="title">Facebook</span>
+                        <span class="description">Ghé thăm trang Facebook</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <!-- 3. TikTok -->
+            <a href="https://www.tiktok.com/@uani.ome.22" target="_blank" rel="noopener noreferrer" class="link-card">
+                <div class="link-info">
+                    <i class="fa-brands fa-tiktok link-icon tiktok-icon"></i>
+                    <div class="link-text">
+                        <span class="title">TikTok</span>
+                        <span class="description">@uani.ome.22</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+        </div>
+
+        <!-- Nút quay lại trang chủ nếu dùng nhiều trang -->
+        <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Quay lại trang chính</a>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2026 All Rights Reserved.</p>
+        </div>
+    </div>
+
+</body>
+</html>
